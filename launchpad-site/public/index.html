@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LaunchPad.dev — Career Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Secular+One&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+   <script src="api-client.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ SVG SPRITE (icons reused across pages) ============ -->
+<svg class="sr-only" aria-hidden="true">
+  <symbol id="icon-logo" viewBox="0 0 48 48">
+    <g>
+      <path d="M24 24 C24 12, 14 8, 6 12 C10 22, 16 26, 24 24 Z" fill="#1f5a63"/>
+      <path d="M24 24 C36 24, 40 14, 36 6 C26 10, 22 16, 24 24 Z" fill="#2c8792"/>
+      <path d="M24 24 C24 36, 34 40, 42 36 C38 26, 32 22, 24 24 Z" fill="#3fb0bd"/>
+      <path d="M24 24 C12 24, 8 34, 12 42 C22 38, 26 32, 24 24 Z" fill="#245f68"/>
+      <circle cx="24" cy="24" r="4.5" fill="#0e2b30"/>
+    </g>
+  </symbol>
+  <symbol id="icon-arrow-right" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+    <path d="M10 8l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="icon-menu" viewBox="0 0 24 24">
+    <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="icon-user" viewBox="0 0 24 24">
+    <circle cx="12" cy="8" r="4" fill="currentColor"/>
+    <path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8" fill="currentColor"/>
+  </symbol>
+  <symbol id="icon-cv" viewBox="0 0 24 24">
+    <rect x="4" y="3" width="16" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="icon-github" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49v-1.92c-2.78.62-3.37-1.36-3.37-1.36-.46-1.2-1.11-1.52-1.11-1.52-.91-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.9 1.57 2.34 1.12 2.91.86.09-.66.35-1.12.64-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5.01 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.82c0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/>
+  </symbol>
+  <symbol id="icon-mastercard" viewBox="0 0 40 24">
+    <circle cx="15" cy="12" r="9" fill="#eb5b1e"/>
+    <circle cx="25" cy="12" r="9" fill="#f4a623" fill-opacity="0.9"/>
+  </symbol>
+  <symbol id="icon-apple" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M16.5 2.6c-.9.05-2 .6-2.6 1.35-.55.65-1.05 1.65-.85 2.65 1 .05 2.05-.55 2.6-1.3.55-.65.95-1.65.85-2.7Zm2.8 6.7c-1.55-.05-2.65.9-3.35.9-.7 0-1.75-.85-2.9-.85-1.5 0-2.9.9-3.65 2.25-1.55 2.7-.4 6.75 1.15 9 .75 1.1 1.65 2.3 2.85 2.25 1.15-.05 1.6-.75 3-.75s1.8.75 3 .7c1.25-.05 2.05-1.15 2.8-2.25.9-1.3 1.25-2.55 1.25-2.6-.05 0-2.4-.9-2.45-3.6-.05-2.25 1.85-3.3 1.9-3.35-1.05-1.55-2.7-1.7-3.6-1.7Z"/>
+  </symbol>
+</svg>
+
+<!-- ============ TOP NAVIGATION ============ -->
+<header class="topnav" id="topnav">
+  <div class="topnav-inner">
+    <button class="brand" data-nav="home" aria-label="LaunchPad.dev home">
+      <svg class="brand-mark"><use href="#icon-logo"/></svg>
+      <span class="brand-name">LAUNCHPAD<span>.DEV</span></span>
+    </button>
+
+    <nav class="nav-links" aria-label="Primary">
+      <button class="nav-link" data-nav="home">Home</button>
+      <button class="nav-link" data-nav="about">About</button>
+      <button class="nav-link gated-link" data-nav="mentors" title="Sign in to access">Mentors</button>
+      <button class="nav-link gated-link" data-nav="cv-builder" title="Sign in to access">CV Builder</button>
+      <button class="nav-link gated-link" data-nav="interview" title="Sign in to access">Interview Arena</button>
+      <button class="nav-link gated-link" data-nav="subscription" title="Sign in to access">Pricing</button>
+      <button class="nav-link" data-nav="contact">Contact</button>
+    </nav>
+
+    <div class="nav-auth" id="loggedOutAuth">
+      <button class="btn btn-outline" data-nav="signin">Sign In</button>
+      <button class="btn btn-primary" data-nav="signup">Sign Up</button>
+    </div>
+
+    <div class="dropdown" id="loggedInAuth" style="display:none;">
+      <button class="avatar-btn" id="avatarBtn" aria-haspopup="true" aria-expanded="false">Me</button>
+      <div class="dropdown-panel">
+        <button class="dropdown-item" data-nav="profile">User Profile</button>
+        <button class="dropdown-item" data-nav="mentor-dashboard" id="mentorDashboardNavItem" style="display:none;">Mentor Dashboard</button>
+        <button class="dropdown-item" data-nav="admin" id="adminNavItem" style="display:none;">Admin Panel</button>
+        <button class="dropdown-item" data-nav="subscription">Subscription Plan</button>
+        <button class="dropdown-item" data-nav="payment">Payment</button>
+        <button class="dropdown-item danger" id="logoutBtn">Log Out</button>
+      </div>
+    </div>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+      <svg><use href="#icon-menu"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ HOME ============ -->
+<section class="screen" id="screen-home">
+  <div class="home-hero">
+    <div class="home-hero-inner">
+      <svg class="brand-mark"><use href="#icon-logo"/></svg>
+      <h1>Welcome to <em>Career Platform</em></h1>
+      <p>Build your future with expert mentors, powerful tools and opportunities.</p>
+      <form class="search-row" id="searchForm">
+        <input type="text" placeholder="Search mentors, skills..." aria-label="Search mentors or skills">
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="section-wrap">
+    <h2 class="section-title">Featured Mentors</h2>
+    <div class="mentor-grid" id="homeMentorGrid"></div>
+  </div>
+
+  <div class="section-wrap" style="padding-top:0;">
+    <h2 class="section-title">Quick Access</h2>
+    <div class="quick-access-card">
+      <div class="quick-access-icon"><svg width="30" height="30"><use href="#icon-cv"/></svg></div>
+      <div class="quick-access-text">
+        <h3>CV Builder</h3>
+        <p>Create a professional CV in minutes</p>
+      </div>
+      <button class="quick-access-arrow" data-nav="cv-builder" aria-label="Go to CV Builder">
+        <svg><use href="#icon-arrow-right"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MENTORS (browse all) ============ -->
+<section class="screen" id="screen-mentors">
+  <div class="mentors-list-shell">
+    <div class="mentors-list-inner">
+      <h1 class="mentors-list-title">Find a mentor</h1>
+      <p class="card-sub">Browse everyone on LaunchPad.dev, or search by name, role, skill or location.</p>
+      <div class="search-row mentors-list-search">
+        <input type="text" id="mentorsListSearch" placeholder="Search mentors, skills, location..." aria-label="Search mentors">
+      </div>
+      <div class="mentor-grid" id="mentorsListGrid"></div>
+      <p class="mentors-list-empty" id="mentorsListEmpty" hidden>No mentors match that search yet.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SIGN IN ============ -->
+<section class="screen" id="screen-signin">
+  <div class="centered-shell">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <svg class="brand-mark"><use href="#icon-logo"/></svg>
+        <div class="auth-logo-name">LAUNCHPAD</div>
+        <div class="auth-logo-tag">DEV</div>
+      </div>
+      <form id="signinForm" novalidate>
+        <div class="form-error" id="signinError"></div>
+        <div class="field">
+          <label for="signinEmail">Email</label>
+          <input type="email" id="signinEmail" placeholder="studentemail@domain.co.za" required>
+          <span class="field-error" id="signinEmailError"></span>
+        </div>
+        <div class="field">
+          <label for="signinPassword">Password</label>
+          <div class="field-with-toggle">
+            <input type="password" id="signinPassword" placeholder="password" required>
+            <button type="button" class="toggle-visibility" data-toggle-for="signinPassword">SHOW</button>
+          </div>
+          <span class="field-error" id="signinPasswordError"></span>
+        </div>
+        <label class="remember-row">
+          <input type="checkbox" id="rememberMe"> Remember me on this device
+        </label>
+        <button type="submit" class="btn btn-primary btn-block btn-lg">Continue</button>
+      </form>
+      <div class="auth-links">
+        <a href="#" data-nav="forgot">Forgot Password?</a>
+      </div>
+      <div class="auth-links">
+        <span class="muted">Don't have an account? </span><a href="#" data-nav="signup">Sign up here</a>
+      </div>
+      <p class="legal-note">By clicking continue, you agree to our <b>Terms of Service</b> and <b>Privacy Policy</b></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SIGN UP ============ -->
+<section class="screen" id="screen-signup">
+  <div class="centered-shell">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <svg class="brand-mark"><use href="#icon-logo"/></svg>
+        <div class="auth-logo-name">LAUNCHPAD</div>
+        <div class="auth-logo-tag">DEV</div>
+      </div>
+      <div class="auth-heading">
+        <h1>New to LaunchPad? Sign Up</h1>
+      </div>
+      <form id="signupForm" novalidate>
+        <div class="form-error" id="signupError"></div>
+
+        <div class="field account-type-field">
+          <label>I am signing up as</label>
+          <div class="segmented" role="radiogroup" aria-label="Account type">
+            <input type="radio" name="signupAccountType" id="accTypeStudent" value="student" checked>
+            <label for="accTypeStudent">Student</label>
+            <input type="radio" name="signupAccountType" id="accTypeMentor" value="mentor">
+            <label for="accTypeMentor">Mentor</label>
+          </div>
+          <p class="account-type-hint" id="accountTypeHint">Learning and job-hunting on LaunchPad.dev</p>
+        </div>
+
+        <div id="mentorSignupFields" style="display:none;">
+          <div class="field">
+            <label for="signupMentorRole">Your role / title</label>
+            <input type="text" id="signupMentorRole" placeholder="e.g. UX Designer">
+            <span class="field-error" id="signupMentorRoleError"></span>
+          </div>
+          <div class="field">
+            <label for="signupMentorLocation">Location</label>
+            <input type="text" id="signupMentorLocation" placeholder="e.g. Cape Town, South Africa">
+            <span class="field-error" id="signupMentorLocationError"></span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="signupUsername">Username</label>
+          <input type="text" id="signupUsername" placeholder="username" required>
+          <span class="field-error" id="signupUsernameError"></span>
+        </div>
+        <div class="field">
+          <label for="signupEmail">Email</label>
+          <input type="email" id="signupEmail" placeholder="studentemail@domain.co.za" required>
+          <span class="field-error" id="signupEmailError"></span>
+        </div>
+        <div class="field">
+          <label for="signupPassword">Create Password</label>
+          <div class="field-with-toggle">
+            <input type="password" id="signupPassword" placeholder="password" required>
+            <button type="button" class="toggle-visibility" data-toggle-for="signupPassword">SHOW</button>
+          </div>
+          <div class="strength-meter" id="strengthMeter">
+            <div class="strength-bar"><span id="strengthFill"></span></div>
+            <span class="strength-label" id="strengthLabel"></span>
+          </div>
+          <span class="field-error" id="signupPasswordError"></span>
+        </div>
+        <div class="field">
+          <label for="signupConfirm">Confirm Password</label>
+          <div class="field-with-toggle">
+            <input type="password" id="signupConfirm" placeholder="password" required>
+            <button type="button" class="toggle-visibility" data-toggle-for="signupConfirm">SHOW</button>
+          </div>
+          <span class="field-error" id="signupConfirmError"></span>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg">Continue</button>
+      </form>
+      <p class="legal-note">By clicking continue, you agree to our <b>Terms of Service</b> and <b>Privacy Policy</b></p>
+      </div>
+  </div>
+</section>
+
+<!-- ============ VERIFY EMAIL ============ -->
+<section class="screen" id="screen-verify">
+  <div class="centered-shell">
+    <div class="auth-card">
+      <div class="auth-heading"><h1>Check your email</h1></div>
+      <p class="muted" style="text-align:center;margin:0 0 14px;">We sent a 6-digit code to <b id="verifyEmailText"></b>. It expires in 15 minutes.</p>
+      <form id="verifyForm" novalidate>
+        <div class="form-error" id="verifyError"></div>
+        <div class="field">
+          <label for="verifyCode">Verification code</label>
+          <input type="text" id="verifyCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="123456" style="letter-spacing:6px;text-align:center;font-size:22px;">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg">Verify &amp; continue</button>
+      </form>
+      <div class="auth-links"><span class="muted">No email? </span><a href="#" id="verifyResend">Resend code</a></div>
+      <div class="auth-links"><a href="#" data-nav="signup">Use a different email</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FORGOT PASSWORD ============ -->
+<section class="screen" id="screen-forgot">
+  <div class="centered-shell">
+    <div class="auth-card">
+      <div class="auth-heading">
+        <h1>Forgot your password?</h1>
+        <p>Enter your email to reset your password</p>
+      </div>
+      <form id="forgotForm" novalidate>
+        <div class="form-error" id="forgotError"></div>
+        <div class="form-success" id="forgotSuccess"></div>
+        <div class="field" id="forgotEmailField">
+          <label class="sr-only" for="forgotEmail">Email</label>
+          <input type="email" id="forgotEmail" placeholder="studentemail@domain.co.za" required>
+        </div>
+
+        <div id="forgotResetFields" style="display:none;">
+          <div class="field">
+            <label for="forgotCode">6-digit code from your email</label>
+            <input type="text" id="forgotCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="123456" style="letter-spacing:6px;text-align:center;font-size:22px;">
+          </div>
+          <div class="field">
+            <label for="forgotNewPassword">New password</label>
+            <div class="field-with-toggle">
+              <input type="password" id="forgotNewPassword" placeholder="new password">
+              <button type="button" class="toggle-visibility" data-toggle-for="forgotNewPassword">SHOW</button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="forgotNewConfirm">Confirm new password</label>
+            <input type="password" id="forgotNewConfirm" placeholder="confirm new password">
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-lg" id="forgotSubmitBtn">Continue</button>
+      </form>
+      <p class="legal-note">By clicking continue, you agree to our <b>Terms of Service</b> and <b>Privacy Policy</b></p>
+      <div class="auth-links">
+        <a href="#" data-nav="signin">Back to Sign In</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CV BUILDER ============ -->
+<section class="screen" id="screen-cv-builder">
+  <div class="cv-shell">
+    <div class="cv-inner lpcv-root">
+
+      <!-- Progress steps -->
+      <div class="lpcv-steps" id="lpcvSteps">
+        <div class="lpcv-step is-active" data-step="1"><span class="lpcv-step-dot">1</span> Upload</div>
+        <div class="lpcv-step" data-step="2"><span class="lpcv-step-dot">2</span> Analyse</div>
+        <div class="lpcv-step" data-step="3"><span class="lpcv-step-dot">3</span> Report</div>
+        <div class="lpcv-step" data-step="4"><span class="lpcv-step-dot">4</span> Improved CV</div>
+      </div>
+      <div class="lpcv-progress"><div class="lpcv-progress-bar" id="lpcvProgressBar"></div></div>
+
+      <!-- Step 1: upload -->
+      <div class="card">
+        <h2>Upload Your CV</h2>
+        <p class="card-sub">PDF, DOC or DOCX &mdash; max 5MB</p>
+
+        <label class="dropzone lpcv-dropzone" id="lpcvDropzone">
+          <input type="file" class="sr-only" id="cvFileInput" accept=".pdf,.doc,.docx">
+          <svg class="lpcv-dz-icon" aria-hidden="true"><use href="#icon-cv"/></svg>
+          <span id="cvFileLabel">Tap to browse or drop your CV here</span>
+          <small class="lpcv-dz-hint">We never store your file &mdash; analysis runs in your browser</small>
+        </label>
+
+        <div class="lpcv-file" id="lpcvFileInfo" hidden>
+          <div class="lpcv-file-icon" id="lpcvFileExt">PDF</div>
+          <div class="lpcv-file-meta">
+            <strong id="lpcvFileName">filename.pdf</strong>
+            <span id="lpcvFileSize">0 KB</span>
+          </div>
+          <div class="lpcv-file-status" id="lpcvFileStatus">✓ File uploaded successfully</div>
+          <button type="button" class="lpcv-file-remove" id="lpcvRemoveFile" aria-label="Remove file">&times;</button>
+        </div>
+
+        <p class="lpcv-error" id="lpcvFileError" hidden></p>
+      </div>
+
+      <div class="card">
+        <h2>GitHub Profile</h2>
+        <p class="card-sub">Paste GitHub link (optional)</p>
+        <div class="github-input-row">
+          <input type="text" id="githubInput" placeholder="github.com/your-surname">
+        </div>
+      </div>
+
+      <button class="analyse-btn" id="analyseBtn" disabled>
+        Analyse CV <svg><use href="#icon-arrow-right"/></svg>
+      </button>
+
+      <!-- Step 2: analysing -->
+      <div class="card lpcv-loader" id="lpcvAnalysing" hidden>
+        <div class="lpcv-spinner" aria-hidden="true"></div>
+        <h3 class="lpcv-loader-title">AI is analysing your CV</h3>
+        <p class="lpcv-loader-msg" id="lpcvAnalyseMsg">Reading CV...</p>
+        <div class="lpcv-progress"><div class="lpcv-progress-bar" id="lpcvAnalyseBar"></div></div>
+      </div>
+
+      <!-- Step 3: report -->
+      <div class="lpcv-report" id="lpcvReport" hidden>
+        <div class="card lpcv-score-card">
+          <div class="lpcv-score-ring" id="lpcvScoreRing" style="--lpcv-score:0">
+            <div class="lpcv-score-value"><span id="lpcvScoreNum">0</span><small>/100</small></div>
+          </div>
+          <div class="lpcv-score-copy">
+            <h3>AI CV Report</h3>
+            <p id="lpcvScoreVerdict">Calculating&hellip;</p>
+            <div class="lpcv-kpis">
+              <div class="lpcv-kpi"><span class="lpcv-kpi-label">ATS Compatibility</span><strong id="lpcvAts">—</strong></div>
+              <div class="lpcv-kpi"><span class="lpcv-kpi-label">Formatting</span><strong id="lpcvFormatting">—</strong></div>
+              <div class="lpcv-kpi"><span class="lpcv-kpi-label">Readability</span><strong id="lpcvReadability">—</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Section Breakdown</h2>
+          <p class="card-sub">How each part of your CV performs</p>
+          <div class="lpcv-sections" id="lpcvSections"></div>
+        </div>
+
+        <div class="card">
+          <h2>Recommendations</h2>
+          <p class="card-sub">Prioritised fixes from the AI reviewer</p>
+          <ul class="lpcv-recs" id="lpcvRecs"></ul>
+        </div>
+
+        <button class="analyse-btn lpcv-generate-btn" id="lpcvGenerateBtn">
+          Generate Improved CV <svg><use href="#icon-arrow-right"/></svg>
+        </button>
+      </div>
+
+
+
+
+<!-- ===== NEW: CV Details Form (only shown after analysis + Generate click) ===== -->
+<section class="card lpcv-form" id="lpcvForm" hidden>
+  <div class="lpcv-form-head">
+    <h3>Enter your CV details</h3>
+    <p>Your improved CV is built only from the information you enter below.</p>
+    <div class="lpcv-form-steps" id="lpcvFormSteps">
+      <button type="button" class="lpcv-fstep is-active" data-fstep="1"><span>1</span> Personal</button>
+      <button type="button" class="lpcv-fstep" data-fstep="2"><span>2</span> Summary &amp; Skills</button>
+      <button type="button" class="lpcv-fstep" data-fstep="3"><span>3</span> Experience &amp; Education</button>
+      <button type="button" class="lpcv-fstep" data-fstep="4"><span>4</span> Projects &amp; Extras</button>
+    </div>
+  </div>
+
+  <!-- Step 1 -->
+  <div class="lpcv-fpanel is-active" data-fpanel="1">
+    <div class="lpcv-grid-2">
+      <div class="field"><label for="cvFullName">Full Name *</label><input id="cvFullName" type="text" placeholder="e.g. Thabo Mokoena"></div>
+      <div class="field"><label for="cvTitle">Professional Title *</label><input id="cvTitle" type="text" placeholder="e.g. Junior Software Developer"></div>
+      <div class="field"><label for="cvEmail">Email Address</label><input id="cvEmail" type="email" placeholder="you@email.com"></div>
+      <div class="field"><label for="cvPhone">Phone Number</label><input id="cvPhone" type="tel" placeholder="+27 82 000 0000"></div>
+      <div class="field"><label for="cvAddress">Physical Address</label><input id="cvAddress" type="text" placeholder="City, Province"></div>
+      <div class="field"><label for="cvLinkedIn">LinkedIn</label><input id="cvLinkedIn" type="text" placeholder="linkedin.com/in/username"></div>
+      <div class="field"><label for="cvGitHub">GitHub</label><input id="cvGitHub" type="text" placeholder="github.com/username"></div>
+      <div class="field"><label for="cvPortfolio">Portfolio Website</label><input id="cvPortfolio" type="text" placeholder="yourdomain.dev"></div>
+    </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="lpcv-fpanel" data-fpanel="2">
+    <div class="field"><label for="cvSummary">Professional Summary</label>
+      <textarea id="cvSummary" rows="5" placeholder="Two to four lines: who you are, your proof, and what you want next."></textarea>
+    </div>
+    <div class="lpcv-grid-2">
+      <div class="field"><label for="cvTechSkills">Technical Skills</label>
+        <textarea id="cvTechSkills" rows="4" placeholder="Comma separated: JavaScript, React, SQL, Git"></textarea>
+        <small class="lpcv-hint">Separate each skill with a comma.</small>
+      </div>
+      <div class="field"><label for="cvSoftSkills">Soft Skills</label>
+        <textarea id="cvSoftSkills" rows="4" placeholder="Comma separated: Communication, Teamwork, Problem solving"></textarea>
+        <small class="lpcv-hint">Separate each skill with a comma.</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="lpcv-fpanel" data-fpanel="3">
+    <h4 class="lpcv-fgroup-title">Work Experience</h4>
+    <div id="cvExperienceList" class="lpcv-repeater"></div>
+    <button type="button" class="btn btn-indigo lpcv-add-btn" id="cvAddExperience">+ Add Another Experience</button>
+
+    <h4 class="lpcv-fgroup-title">Education</h4>
+    <div id="cvEducationList" class="lpcv-repeater"></div>
+    <button type="button" class="btn btn-indigo lpcv-add-btn" id="cvAddEducation">+ Add Another Qualification</button>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="lpcv-fpanel" data-fpanel="4">
+    <h4 class="lpcv-fgroup-title">Projects</h4>
+    <div id="cvProjectList" class="lpcv-repeater"></div>
+    <button type="button" class="btn btn-indigo lpcv-add-btn" id="cvAddProject">+ Add Project</button>
+
+    <h4 class="lpcv-fgroup-title">Certifications</h4>
+    <div id="cvCertList" class="lpcv-repeater"></div>
+    <button type="button" class="btn btn-indigo lpcv-add-btn" id="cvAddCert">+ Add Certification</button>
+
+    <h4 class="lpcv-fgroup-title">References <small class="lpcv-hint">(optional)</small></h4>
+    <div id="cvRefList" class="lpcv-repeater"></div>
+    <button type="button" class="btn btn-indigo lpcv-add-btn" id="cvAddRef">+ Add Reference</button>
+  </div>
+
+  <p class="lpcv-error" id="lpcvFormError" hidden></p>
+
+  <div class="lpcv-form-nav">
+    <button type="button" class="btn outlook-btn lpcv-nav-btn" id="lpcvFormBack" hidden>Back</button>
+    <button type="button" class="btn btn-indigo lpcv-nav-btn" id="lpcvFormNext">Next</button>
+    <button type="button" class="lpcv-generate-btn" id="lpcvBuildCvBtn" hidden>Generate CV</button>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+      <!-- Step 6: rebuilding -->
+      <div class="card lpcv-loader" id="lpcvBuilding" hidden>
+        <div class="lpcv-spinner" aria-hidden="true"></div>
+        <h3 class="lpcv-loader-title">Rebuilding your CV</h3>
+        <p class="lpcv-loader-msg" id="lpcvBuildMsg">Generating professional summary...</p>
+        <div class="lpcv-progress"><div class="lpcv-progress-bar" id="lpcvBuildBar"></div></div>
+      </div>
+
+      <!-- Step 7: improved CV -->
+      <div class="lpcv-improved" id="lpcvImproved" hidden>
+        <div class="card lpcv-success">
+          <span class="lpcv-success-tick">✓</span>
+          <div>
+            <h3>Your improved CV has been generated successfully.</h3>
+            <p id="lpcvImprovedGain">ATS score improved.</p>
+          </div>
+        </div>
+
+        <div class="card lpcv-preview" id="lpcvPreview">
+
+        </div>
+
+        <button class="analyse-btn lpcv-download-btn" id="lpcvDownloadBtn">
+          Download CV <svg><use href="#icon-arrow-right"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="lpcv-toast" id="lpcvToast" role="status" aria-live="polite"></div>
+</section>
+
+<!-- ============ INTERVIEW ARENA ============ -->
+<section class="screen" id="screen-interview">
+  <div class="arena-shell">
+    <div class="arena-inner">
+      <h1 class="arena-title">Interview Arena</h1>
+      <p class="arena-lead">Pick a challenge and practice live — your code actually runs</p>
+
+      <div class="arena-layout">
+        <aside class="challenge-list card">
+          <div class="challenge-filter">
+            <button class="filter-chip active" data-filter="All">All</button>
+            <button class="filter-chip" data-filter="Easy">Easy</button>
+            <button class="filter-chip" data-filter="Medium">Medium</button>
+            <button class="filter-chip" data-filter="Hard">Hard</button>
+          </div>
+          <div id="challengeItems"></div>
+        </aside>
+
+        <div class="challenge-main">
+          <div class="challenge-pill" id="challengePill">Challenge</div>
+
+          <div class="card question-card">
+            <div class="question-card-top">
+              <h3 id="qTitle">Question</h3>
+              <span class="difficulty-tag" id="qDifficulty">Medium</span>
+            </div>
+            <p class="prompt" id="qPrompt"></p>
+            <p class="hint" id="qHint"></p>
+          </div>
+
+          <div class="lang-row">
+            <span class="lang-row-label">Language</span>
+            <div class="lang-controls">
+              <select class="lang-select" id="langSelect" aria-label="Programming language">
+                <option>JavaScript</option>
+                <option>Python</option>
+                <option>Java</option>
+              </select>
+              <button class="reset-btn" id="resetCodeBtn">Reset</button>
+            </div>
+          </div>
+
+          <textarea class="code-editor editable" id="codeEditor" spellcheck="false"></textarea>
+
+          <div class="arena-actions">
+            <button class="run-tests-btn" id="runTestsBtn">Run Tests</button>
+            <button class="submit-btn" id="submitAnswerBtn">Submit Answer</button>
+          </div>
+
+          <div class="test-results" id="testResults"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MENTOR PROFILE ============ -->
+<section class="screen" id="screen-mentor">
+  <div class="mentor-shell">
+    <div class="mentor-inner">
+      <div class="card mentor-header-card">
+        <div class="mentor-photo" id="mentorPhotoInitials"></div>
+        <div class="mentor-header-info">
+          <h2 id="mentorName">Qhubekani Smith</h2>
+          <p class="mentor-role" id="mentorRole">UX Designer</p>
+          <p class="mentor-meta" id="mentorLocation">Cape Town, South Africa</p>
+          <p class="mentor-meta" id="mentorRatingLine">4.9 (128 reviews)</p>
+          <button class="btn btn-purple" data-scroll-to="bookingCard">Book Session</button>
+        </div>
+        <div class="tab-row">
+          <button class="tab-item active" data-mtab="about">About</button>
+          <button class="tab-item" data-mtab="experience">Experience</button>
+          <button class="tab-item" data-mtab="skills">Skills</button>
+          <button class="tab-item" data-mtab="reviews">Reviews</button>
+        </div>
+      </div>
+
+      <div class="card mentor-tab-panel active" id="mtab-about">
+        <div class="mentor-row-card">
+          <div class="mentor-avatar" id="mentorAvatarInitials">QS</div>
+          <div class="row-content">
+            <h3 id="mentorAboutTitle">About Smith</h3>
+            <p id="mentorAboutText">Smith is a passionate software engineer with over 5 years of experience building software.</p>
+          </div>
+        </div>
+        <div class="contact-card" id="mentorContactCard" hidden>
+          <h4>Get in touch</h4>
+          <div class="contact-links" id="mentorContactLinks"></div>
+        </div>
+      </div>
+
+      <div class="card mentor-tab-panel" id="mtab-experience">
+        <h3 style="margin-top:0;">Experience</h3>
+        <div id="mentorExperienceList"></div>
+      </div>
+
+      <div class="card mentor-tab-panel" id="mtab-skills">
+        <div class="mentor-row-card">
+          <div class="mentor-avatar"><svg width="20" height="20"><use href="#icon-github"/></svg></div>
+          <div class="row-content"><h3>Skills</h3></div>
+        </div>
+        <div class="skill-chips" id="mentorSkillChips"></div>
+      </div>
+
+      <div class="card mentor-tab-panel" id="mtab-reviews">
+        <div class="reviews-summary">
+          <div class="reviews-score" id="reviewsAvgScore">4.9</div>
+          <div>
+            <div class="reviews-stars" id="reviewsAvgStars">★★★★★</div>
+            <p class="card-sub" id="reviewsCount">128 reviews</p>
+          </div>
+        </div>
+        <div id="reviewsList"></div>
+
+        <div class="review-form">
+          <h3 style="margin-bottom:6px;">Leave a review</h3>
+          <div class="star-picker" id="starPicker" data-rating="5">
+            <button type="button" data-star="1">★</button>
+            <button type="button" data-star="2">★</button>
+            <button type="button" data-star="3">★</button>
+            <button type="button" data-star="4">★</button>
+            <button type="button" data-star="5">★</button>
+          </div>
+          <textarea id="reviewText" class="cv-paste" style="min-height:70px;" placeholder="How was your session?"></textarea>
+          <button class="btn btn-outline" id="submitReviewBtn" style="margin-top:8px;">Post Review</button>
+        </div>
+      </div>
+
+      <div class="card" id="mentorPicker">
+        <div class="builder-section-head"><h3 style="margin:0;">Other mentors</h3><button class="btn btn-outline btn-sm" data-nav="mentors">Browse all</button></div>
+        <div class="mentor-switch-row" id="mentorSwitchRow"></div>
+      </div>
+
+      <div class="card book-card" id="bookingCard">
+        <h3 style="margin:0 0 4px;">Book a 1:1 session</h3>
+        <p class="card-sub" id="bookingSub">At the best time for you</p>
+
+        <div class="day-picker" id="dayPicker"></div>
+        <div class="slot-picker" id="slotPicker"></div>
+
+        <button class="btn btn-purple btn-block" id="confirmBookingBtn" disabled>Select a day and time</button>
+        <p class="booking-confirm" id="bookingConfirmMsg"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MENTOR DASHBOARD ============ -->
+<section class="screen" id="screen-mentor-dashboard">
+  <div class="profile-shell">
+    <div class="profile-inner">
+      <div class="profile-heading">
+        <h1>Mentor Dashboard</h1>
+        <p class="card-sub">Manage the public profile students see when they find you on LaunchPad.dev.</p>
+      </div>
+
+      <div class="profile-avatar-block">
+        <div class="profile-avatar" id="mdPhotoPreview"></div>
+        <div class="photo-edit-actions">
+          <label class="btn btn-outline btn-sm photo-upload-btn">Upload photo<input type="file" accept="image/*" id="mdPhotoInput" class="sr-only"></label>
+          <button type="button" class="btn btn-outline btn-sm" id="mdPhotoRemoveBtn">Remove</button>
+        </div>
+      </div>
+
+      <div class="profile-section">
+        <div class="builder-section-head"><h3>Public Profile</h3></div>
+        <div class="field"><label for="mdName">Display name</label><input id="mdName" type="text"></div>
+        <div class="field"><label for="mdRole">Role / title</label><input id="mdRole" type="text" placeholder="e.g. UX Designer"></div>
+        <div class="field"><label for="mdLocation">Location</label><input id="mdLocation" type="text" placeholder="e.g. Cape Town, South Africa"></div>
+        <div class="field"><label for="mdAbout">About</label><textarea id="mdAbout" class="cv-paste" style="min-height:90px;" placeholder="Tell students about yourself"></textarea></div>
+        <div class="builder-actions">
+          <button class="btn btn-primary" id="mdSaveBtn">Save profile</button>
+        </div>
+      </div>
+
+      <div class="profile-section">
+        <div class="builder-section-head"><h3>Contact details</h3></div>
+        <p class="card-sub">Shown on your public profile so students can reach you directly. Leave any of these blank to keep it private.</p>
+        <div class="field"><label for="mdContactEmail">Contact email</label><input id="mdContactEmail" type="email" placeholder="you@example.com"></div>
+        <div class="field"><label for="mdContactPhone">Phone / WhatsApp</label><input id="mdContactPhone" type="tel" placeholder="+27 82 000 0000"></div>
+        <div class="field"><label for="mdLinkedIn">LinkedIn</label><input id="mdLinkedIn" type="text" placeholder="linkedin.com/in/yourname"></div>
+        <p class="card-sub" style="margin-top:-4px;">Saved together with "Save profile" above.</p>
+      </div>
+
+      <div class="profile-section">
+        <h3>Skills</h3>
+        <div class="skill-chips" id="mdSkillChips"></div>
+        <div class="tag-input-row">
+          <input type="text" id="mdSkillInput" placeholder="Add a skill and press Enter">
+          <button type="button" class="btn btn-outline btn-sm" id="mdSkillAddBtn">Add</button>
+        </div>
+      </div>
+
+      <div class="profile-section">
+        <h3>Experience</h3>
+        <div id="mdExperienceList"></div>
+        <div class="exp-input-grid">
+          <input type="text" id="mdExpRole" placeholder="Role">
+          <input type="text" id="mdExpCompany" placeholder="Company">
+          <input type="text" id="mdExpDates" placeholder="e.g. 2022 – Present">
+          <button type="button" class="btn btn-outline btn-sm" id="mdExpAddBtn">Add</button>
+        </div>
+      </div>
+
+      <div class="profile-section">
+        <h3>Session Requests</h3>
+        <div id="mdBookingsList"></div>
+      </div>
+
+      <div class="profile-section">
+        <button class="btn btn-outline" id="mdViewPublicBtn" data-nav="mentor">View my public profile</button>
+      </div>
+
+      <div class="logout-wrap">
+        <button class="logout-btn" id="logoutBtn3">Log Out</button>
+      </div>
+
+      <div class="danger-zone">
+        <h3>Danger zone</h3>
+        <p class="card-sub">Deleting your account removes your mentor listing, profile, bookings and progress from this browser. This can't be undone.</p>
+        <button type="button" class="btn-danger-outline" id="deleteAccountBtn2">Delete my account</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ USER PROFILE ============ -->
+<section class="screen" id="screen-profile">
+  <div class="profile-shell">
+    <div class="profile-inner">
+      <div class="profile-heading"><h1>User Profile</h1></div>
+      <div class="profile-avatar-block">
+        <div class="profile-avatar" id="profileAvatarInitials"></div>
+        <h2 id="profileDisplayName">Your Name</h2>
+      </div>
+
+      <div class="profile-section">
+        <div class="builder-section-head"><h3>About Me</h3><button type="button" class="btn btn-outline btn-sm" id="editProfileBtn">Edit</button></div>
+
+        <div id="profileView">
+          <div class="profile-info-row"><span>Name</span><span id="viewName">—</span></div>
+          <div class="profile-info-row"><span>Email</span><span id="viewEmail">—</span></div>
+          <div class="profile-info-row"><span>Phone</span><span id="viewPhone">—</span></div>
+          <div class="profile-info-row"><span>Bio</span><span id="viewBio">—</span></div>
+          <div class="profile-info-row"><span>LinkedIn</span><span id="viewLinkedin">—</span></div>
+        </div>
+        <p class="card-sub" style="margin-top:6px;">Add your LinkedIn so mentors you book can find and connect with you.</p>
+
+        <div id="profileEdit" style="display:none;">
+          <div class="field photo-edit-field">
+            <label>Profile photo</label>
+            <div class="photo-edit-row">
+              <div class="photo-edit-preview" id="pPhotoPreview"></div>
+              <div class="photo-edit-actions">
+                <label class="btn btn-outline btn-sm photo-upload-btn">Upload photo<input type="file" accept="image/*" id="pPhotoInput" class="sr-only"></label>
+                <button type="button" class="btn btn-outline btn-sm" id="pPhotoRemoveBtn">Remove</button>
+              </div>
+            </div>
+          </div>
+          <div class="field"><label for="pName">Name</label><input id="pName" type="text"></div>
+          <div class="field"><label for="pEmail">Email</label><input id="pEmail" type="email"></div>
+          <div class="field"><label for="pPhone">Phone</label><input id="pPhone" type="text"></div>
+          <div class="field"><label for="pBio">Short bio</label><textarea id="pBio" class="cv-paste" style="min-height:70px;"></textarea></div>
+          <div class="field"><label for="pLinkedin">LinkedIn</label><input id="pLinkedin" type="text" placeholder="linkedin.com/in/yourname"></div>
+          <div class="builder-actions">
+            <button class="btn btn-outline" id="cancelProfileEditBtn">Cancel</button>
+            <button class="btn btn-primary" id="saveProfileBtn">Save changes</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-section">
+        <h3>Subscription</h3>
+        <button class="profile-link" data-nav="subscription" id="profileSubLink">Manage your Subscription</button>
+      </div>
+
+      <div class="profile-section">
+        <h3>Progress</h3>
+        <div class="progress-stats">
+          <div class="progress-stat"><span class="progress-num" id="progressChallenges">0</span><span>challenges solved</span></div>
+          <div class="progress-stat"><span class="progress-num" id="progressCvScore">—</span><span>latest CV score</span></div>
+          <div class="progress-stat"><span class="progress-num" id="progressBookings">0</span><span>sessions booked</span></div>
+        </div>
+      </div>
+
+      <div class="profile-section" id="myBookingsSection" style="display:none;">
+        <h3>My Bookings</h3>
+        <div id="myBookingsList"></div>
+      </div>
+
+      <div class="logout-wrap">
+        <button class="logout-btn" id="logoutBtn2">Log Out</button>
+      </div>
+
+      <div class="danger-zone">
+        <h3>Danger zone</h3>
+        <p class="card-sub">Deleting your account removes your profile, mentor listing (if any), bookings and progress from this browser. This can't be undone.</p>
+        <button type="button" class="btn-danger-outline" id="deleteAccountBtn">Delete my account</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SUBSCRIPTION ============ -->
+<section class="screen" id="screen-subscription">
+  <div class="sub-topbar"><h1>Subscription Plan</h1></div>
+  <div class="sub-shell">
+    <div class="sub-inner">
+      <div class="sub-heading">
+        <h2>Choose your plan</h2>
+        <p id="subCurrentPlanNote">Unlock premium features to grow your career</p>
+      </div>
+
+      <div class="billing-toggle" role="tablist">
+        <button class="active" id="monthlyToggle" role="tab" aria-selected="true">Monthly</button>
+        <button id="annualToggle" role="tab" aria-selected="false">Annual</button>
+      </div>
+
+      <div class="plans-grid">
+        <div class="plan-card free">
+          <div class="plan-head">
+            <h3>Free</h3>
+            <div class="plan-price">R0<small>/mo</small></div>
+          </div>
+          <ul class="plan-features">
+            <li>Basic CV builder</li>
+            <li>3 mentor views/month</li>
+          </ul>
+          <button class="plan-cta" id="freePlanBtn" disabled>Current Plan</button>
+        </div>
+
+        <div class="plan-card pro">
+          <span class="plan-badge">Most Popular</span>
+          <div class="plan-head">
+            <h3>Pro</h3>
+            <div class="plan-price" id="proPrice">R169<small>/mo</small></div>
+          </div>
+          <ul class="plan-features">
+            <li>Unlimited Mentor views</li>
+            <li>Full CV builder / Portfolio Builder</li>
+            <li>Interview Arena Access</li>
+            <li>2 session bookings/mo</li>
+          </ul>
+          <button class="plan-cta get-pro" id="proPlanBtn" data-nav="payment">Get Pro</button>
+        </div>
+      </div>
+
+      <div class="cancel-sub-wrap" id="cancelSubWrap" style="display:none;">
+        <button class="btn btn-outline" id="cancelSubBtn">Cancel Pro subscription</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAYMENT ============ -->
+<section class="screen" id="screen-payment">
+  <div class="pay-topbar">
+    <div class="pay-topbar-inner">
+      <h1>Payment</h1>
+      <div class="avatar-btn">Me</div>
+    </div>
+  </div>
+  <div class="pay-shell">
+    <div class="pay-inner">
+      <div class="selected-plan-card">
+        <div>
+          <h3>Selected Plan</h3>
+          <p id="paySelectedPlanText">Pro · R169/mo</p>
+        </div>
+        <button class="change-btn" data-nav="subscription">Change</button>
+      </div>
+
+      <div class="selected-plan-card" style="margin-top:14px;">
+        <div>
+          <h3>Secure card payment</h3>
+          <p>You'll enter your card on Paystack's encrypted checkout page (with 3-D Secure). LaunchPad.dev never sees or stores your card details.</p>
+        </div>
+      </div>
+      <div class="form-error" id="payError"></div>
+
+      <button class="subscribe-btn" id="subscribeBtn">Pay securely · R169/mo</button>
+      <p class="cancel-note">Cancel anytime</p>
+    </div>
+  </div>
+</section>
+<!-- ============ ABOUT ============ -->
+<section class="screen" id="screen-about">
+  <div class="about-hero">
+    <div class="about-hero-inner">
+      <span class="eyebrow">Why LaunchPad.dev exists</span>
+      <h1>Career acceleration, built for South African ICT students</h1>
+      <p>LaunchPad.dev is a career platform where students in Application Development, Software Engineering and related ICT diplomas get the three things job-hunting usually lacks: a CV an ATS will actually pass, real interview practice, and a mentor who's already done the job you're applying for.</p>
+      <div class="about-hero-actions">
+        <button class="btn btn-primary btn-lg" data-nav="signup">Create a free account</button>
+        <button class="btn btn-outline btn-lg" data-nav="contact">Talk to us</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-wrap">
+    <h2 class="section-title">How it works</h2>
+    <div class="how-it-works-grid">
+      <div class="hiw-card">
+        <span class="hiw-num">1</span>
+        <h3>Sign up</h3>
+        <p>Create a free student account in under a minute — or sign up as a mentor to start building your public profile.</p>
+      </div>
+      <div class="hiw-card">
+        <span class="hiw-num">2</span>
+        <h3>Build your CV</h3>
+        <p>Upload your existing CV for an AI-powered ATS review, or build one from scratch with our guided CV Builder.</p>
+      </div>
+      <div class="hiw-card">
+        <span class="hiw-num">3</span>
+        <h3>Practice for real</h3>
+        <p>Run actual code against real test cases in the Interview Arena — coding questions, not just theory.</p>
+      </div>
+      <div class="hiw-card">
+        <span class="hiw-num">4</span>
+        <h3>Connect with a mentor</h3>
+        <p>Browse mentors by role and location, book a 1:1 session, and get their direct contact details to keep in touch.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-wrap alt-bg">
+    <h2 class="section-title">Who it's for</h2>
+    <div class="who-grid">
+      <div class="who-card">
+        <h3>Students</h3>
+        <p>If you're studying towards an ICT diploma or degree and want your CV, interview skills and network to be job-ready before you graduate — not after — this is built for you.</p>
+      </div>
+      <div class="who-card">
+        <h3>Mentors</h3>
+        <p>If you're already working in tech and want to give back — reviewing CVs, running mock interviews, or just being someone a student can message with questions — you can build a public profile and take bookings here.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-wrap">
+    <h2 class="section-title">What you get</h2>
+    <div class="about-features-grid">
+      <div class="feature-card">
+        <div class="feature-icon"><svg width="24" height="24"><use href="#icon-cv"/></svg></div>
+        <h3>AI CV Review</h3>
+        <p>ATS compatibility, formatting and readability scoring, with section-by-section, prioritised recommendations.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg width="24" height="24"><use href="#icon-arrow-right"/></svg></div>
+        <h3>Interview Arena</h3>
+        <p>Coding challenges across Easy, Medium and Hard, in JavaScript, Python or Java, with your code actually run against test cases.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg width="24" height="24"><use href="#icon-user"/></svg></div>
+        <h3>Real Mentors</h3>
+        <p>Search by skill or location, read reviews from other students, book sessions, and get direct contact details.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ADMIN PANEL ============ -->
+<section class="screen" id="screen-admin">
+  <div class="section-wrap">
+    <h1 style="margin-top:0;">Admin panel</h1>
+    <p class="card-sub">Only accounts listed in ADMIN_EMAILS can see this page. Everything here is read from your MySQL database.</p>
+    <div class="admin-tabs" id="adminTabs">
+      <button class="btn btn-outline btn-sm active" data-admin-tab="overview">Overview</button>
+      <button class="btn btn-outline btn-sm" data-admin-tab="users">Users</button>
+      <button class="btn btn-outline btn-sm" data-admin-tab="mentors">Mentors</button>
+      <button class="btn btn-outline btn-sm" data-admin-tab="payments">Payments</button>
+      <button class="btn btn-outline btn-sm" data-admin-tab="messages">Messages</button>
+      <button class="btn btn-outline btn-sm" data-admin-tab="settings">Contact details</button>
+    </div>
+    <div class="card" id="adminBody">Loading…</div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="screen" id="screen-contact">
+  <div class="contact-hero">
+    <div class="contact-hero-inner">
+      <span class="eyebrow">Get in touch</span>
+      <h1>Questions, feedback, or want to partner with us?</h1>
+      <p>Whether you're a student stuck on something, a mentor who wants to join, or just have feedback on the platform — here's how to reach us.</p>
+    </div>
+  </div>
+
+  <div class="section-wrap">
+    <div class="contact-layout">
+      <div class="contact-details-grid">
+        <div class="contact-detail-card">
+          <h3>Email</h3>
+          <a href="mailto:hello@launchpad.dev" data-contact-email>hello@launchpad.dev</a>
+          <p class="card-sub">For general questions and support.</p>
+        </div>
+        <div class="contact-detail-card">
+          <h3>Phone / WhatsApp</h3>
+          <a href="tel:+27210000000" data-contact-phone>+27 21 000 0000</a>
+          <p class="card-sub" data-contact-hours>Weekdays, 09:00–17:00 SAST.</p>
+        </div>
+        <div class="contact-detail-card">
+          <h3>Location</h3>
+          <p data-contact-location>Cape Town, South Africa</p>
+          <p class="card-sub">Built by students, for students.</p>
+        </div>
+        <div class="contact-detail-card">
+          <h3>Follow along</h3>
+          <div class="contact-socials">
+            <a href="#" target="_blank" rel="noopener" data-social="linkedin">LinkedIn</a>
+            <a href="#" target="_blank" rel="noopener" data-social="github">GitHub</a>
+            <a href="#" target="_blank" rel="noopener" data-social="instagram">Instagram</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card contact-form-card">
+        <h3 style="margin-top:0;">Send us a message</h3>
+        <p class="card-sub">We'll get back to you at the email you provide.</p>
+        <form id="contactForm" novalidate>
+          <div class="form-success" id="contactSuccess"></div>
+          <div class="field"><label for="contactName">Name</label><input id="contactName" type="text" required></div>
+          <div class="field"><label for="contactEmail2">Email</label><input id="contactEmail2" type="email" required></div>
+          <div class="field"><label for="contactMessage">Message</label><textarea id="contactMessage" class="cv-paste" style="min-height:110px;" required></textarea></div>
+          <button type="submit" class="btn btn-primary btn-block btn-lg">Send message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <svg class="brand-mark" width="28" height="28"><use href="#icon-logo"/></svg>
+      <strong>LaunchPad.dev</strong>
+      <p>Career acceleration for South African ICT students.</p>
+    </div>
+    <nav class="footer-links" aria-label="Footer">
+      <button data-nav="about">About</button>
+      <button data-nav="mentors">Mentors</button>
+      <button data-nav="contact">Contact</button>
+    </nav>
+    <div class="footer-contact">
+      <a href="mailto:hello@launchpad.dev" data-contact-email>hello@launchpad.dev</a>
+      <span data-contact-location>Cape Town, South Africa</span>
+    </div>
+  </div>
+  <p class="footer-legal">© 2026 LaunchPad.dev.</p>
+</footer>
+
+<div class="toast" id="globalToast" role="status" aria-live="polite"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
